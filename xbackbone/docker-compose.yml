@@ -1,0 +1,21 @@
+version: "3.7"
+services:
+  xbackbone:
+    image: lscr.io/linuxserver/xbackbone:latest
+    container_name: xbackbone
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/New_York
+    volumes:
+      - ./config:/config
+    expose:
+      - "80"
+    restart: unless-stopped
+    networks:
+      - webserver
+
+networks:
+  webserver:
+    name: webserver
+    external: true

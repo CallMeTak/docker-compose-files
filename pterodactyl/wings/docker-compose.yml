@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  wings:
+    image: ghcr.io/pterodactyl/wings:v1.6.1
+    restart: always
+    networks:
+      - wings0
+    ports:
+      - "8443:8443"
+      - "2022:2022"
+    tty: true
+    environment:
+      TZ: "America/New_York"
+      WINGS_UID: 997
+      WINGS_GID: 997
+      WINGS_USERNAME: pterodactyl
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "/var/lib/docker/containers/:/var/lib/docker/containers/"
+      - "/etc/pterodactyl/:/etc/pterodactyl/"
+      - "/var/lib/pterodactyl/:/var/lib/pterodactyl/"
+      - "/var/log/pterodactyl/:/var/log/pterodactyl/"
+      - "/tmp/pterodactyl/:/tmp/pterodactyl/"
+      - "/etc/ssl/certs:/etc/ssl/certs:ro"
+# Made a symlink from my Caddy volume's cert folder to /etc/ and made it accesible in wings
+# Allows wings to have an always updated version of my wildcard cert (it gets renewed by Caddy)
+      - "/etc/letsencrypt/live/REDACTED/fullchain.pem:/etc/letsencrypt/live/REDACTED/fullchain.pem"
+      - "/etc/letsencrypt/live/REDACTED/privkey.pem:/etc/letsencrypt/live/REDACTED/privkey.pem"
+
+networks:
+  wings0:
+    name: wings0
+    driver: bridge
+    ipam:
+      config:
+        - subnet: "173.21.0.0/16"
+    driver_opts:
+      com.docker.network.bridge.name: wings0
