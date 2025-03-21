@@ -1,6 +1,6 @@
 version: "3.7"
 services:
-  xbackbone:
+  xbackbone2:
     image: lscr.io/linuxserver/xbackbone:latest
     container_name: xbackbone
     environment:
