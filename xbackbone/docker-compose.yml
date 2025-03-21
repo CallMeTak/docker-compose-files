@@ -12,10 +12,3 @@ services:
     expose:
       - "80"
     restart: unless-stopped
-    networks:
-      - webserver
-
-networks:
-  webserver:
-    name: webserver
-    external: true
