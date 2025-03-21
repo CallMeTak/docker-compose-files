@@ -2,7 +2,7 @@ version: "3.7"
 services:
   xbackbone2:
     image: lscr.io/linuxserver/xbackbone:latest
-    container_name: xbackbone
+    container_name: xbackbone2
     environment:
       - PUID=1000
       - PGID=1000
